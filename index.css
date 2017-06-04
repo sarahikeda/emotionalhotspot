@@ -14,9 +14,12 @@ html, body {
   padding: 0;
 }
 
-#description {
-  font-size: 15px;
-  font-weight: 300;
+#hotspot-header {
+  margin-top: 10px;
+  text-align: center;
+}
+#hotspot-description {
+  text-align: center;
 }
 
 #infowindow-content .title {
@@ -78,13 +81,14 @@ html, body {
   font-weight: 500;
   padding: 6px 12px;
 }
+
 #target {
   width: 345px;
 }
 
- .dropdown {
-   margin-top: 2vh;
-   margin-left: 30vh;
+.dropdown {
+  margin-top: 2vh;
+  margin-left: 30vh;
 }
 
 #emotionDropdown {
