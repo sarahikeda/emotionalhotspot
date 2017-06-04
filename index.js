@@ -65,21 +65,32 @@ function createIcon(){
       path: 'M 125,5 155,90 245,90 175,145 200,230 125,180 50,230 75,145 5,90 95,90 z',
       fillOpacity: 0.8,
       scale: .1,
-      strokeWeight: 14
+      strokeWeight: 6
     };
 }
 function makeIcons(){
   var chosenEmotion = selectEmotion()
   var icon = createIcon()
-  if (chosenEmotion == 'joy') {
+  if (chosenEmotion == 'happiness') {
+      icon.fillColor = '#ffeb3b'
       icon.strokeColor = '#ffeb3b'
     } else if (chosenEmotion === "anger") {
-      icon.strokeColor = '#f44336'
-    } else if (chosenEmotion == "melancholy") {
-      icon.strokeColor = '#2158f3'
-    } else if (chosenEmotion == "jealousy") {
-      icon.strokeColor = '#4caf50'
+      icon.fillColor = '#ff0000'
+      icon.strokeColor = '#ff0000'
+    } else if (chosenEmotion == "sadness") {
+      icon.fillColor = '#b900ff'
+      icon.strokeColor = '#b900ff'
+    } else if (chosenEmotion == "disgust") {
+      icon.fillColor = '#12ff28'
+      icon.strokeColor = '#12ff28'
+    } else if (chosenEmotion == "surprise") {
+      icon.fillColor = '#ff9d00'
+      icon.strokeColor = '#ff9d00'
+    } else if (chosenEmotion == "fear") {
+      icon.fillColor = '#fd04cf'
+      icon.strokeColor = '#fd04cf'
     } else {
+      icon.fillColor = '#9c27b0'
       icon.strokeColor = '#9c27b0'
     }
     return icon
