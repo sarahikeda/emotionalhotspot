@@ -60,16 +60,27 @@ function initAutocomplete(chosenEmotion) {
   });
 }
 
-function makeIcons(){
-  var chosenEmotion = selectEmotion()
-  console.log(chosenEmotion)
-  var goldStar = {
+function createIcon(){
+  return {
       path: 'M 125,5 155,90 245,90 175,145 200,230 125,180 50,230 75,145 5,90 95,90 z',
-      fillColor: 'yellow',
       fillOpacity: 0.8,
-      scale: .2,
-      strokeColor: 'gold',
+      scale: .1,
       strokeWeight: 14
     };
-  return goldStar
 }
+function makeIcons(){
+  var chosenEmotion = selectEmotion()
+  var icon = createIcon()
+  if (chosenEmotion == 'joy') {
+      icon.strokeColor = 'yellow'
+    } else if (chosenEmotion === "anger") {
+      icon.strokeColor = 'red'
+    } else if (chosenEmotion == "melancholy") {
+      icon.strokeColor = 'blue'
+    } else if (chosenEmotion == "jealousy") {
+      icon.strokeColor = 'green'
+    } else {
+      icon.strokeColor = 'purple'
+    }
+    return icon
+  }
