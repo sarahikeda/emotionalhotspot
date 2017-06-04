@@ -2,14 +2,30 @@
   <head>
      <meta charset="utf-8">
       <link rel="stylesheet" type="text/css" href="index.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
       <script type="text/javascript" src="index.js" ></script>
       <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCQ9pv7Y7-OKqiDd8IPRLlsLaGivnUy2lQ&libraries=places&callback=initAutocomplete"
                async defer></script>
       <title>Emotional Hotspot</title>
   </head>
   <body>
+    <div class="dropdown">
+      <select id="emotionDropdown">
+        <option disabled selected value> -- Find Your Feeling -- </option>
+        <option value="joy">Joy</option>
+        <option value="melancholy">Melancholy</option>
+        <option value="anger">Anger</option>
+        <option value="jealousy">Jealousy</option>
+      </select>
+    </div>
     <input id="pac-input" class="controls" type="text" placeholder="Search Box">
     <div id="map"></div>
-
-</body>
+  </body>
 </html>
+
+<script>
+  $("#emotionDropdown").change(function(){
+    var chosenEmotion = $(this).val()
+    console.log(chosenEmotion);
+  })
+</script>
