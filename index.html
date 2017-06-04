@@ -10,7 +10,7 @@
   </head>
   <body>
     <div class="dropdown">
-      <select id="emotionDropdown">
+      <select id="emotionDropdown" onchange="selectEmotion()">
         <option disabled selected value>  Find Your Feeling   </option>
         <option value="joy">Joy</option>
         <option value="melancholy">Melancholy</option>
@@ -22,10 +22,3 @@
     <div id="map"></div>
   </body>
 </html>
-
-<script>
-  $("#emotionDropdown").change(function(){
-    var chosenEmotion = $(this).val()
-    console.log(chosenEmotion);
-  })
-</script>

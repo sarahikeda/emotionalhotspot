@@ -51,3 +51,8 @@ function initAutocomplete() {
     map.fitBounds(bounds);
   });
 }
+
+function selectEmotion() {
+  var chosenEmotion = document.getElementById('emotionDropdown').value
+  console.log(chosenEmotion)
+};
