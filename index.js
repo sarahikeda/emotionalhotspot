@@ -72,15 +72,15 @@ function makeIcons(){
   var chosenEmotion = selectEmotion()
   var icon = createIcon()
   if (chosenEmotion == 'joy') {
-      icon.strokeColor = 'yellow'
+      icon.strokeColor = '#ffeb3b'
     } else if (chosenEmotion === "anger") {
-      icon.strokeColor = 'red'
+      icon.strokeColor = '#f44336'
     } else if (chosenEmotion == "melancholy") {
-      icon.strokeColor = 'blue'
+      icon.strokeColor = '#2158f3'
     } else if (chosenEmotion == "jealousy") {
-      icon.strokeColor = 'green'
+      icon.strokeColor = '#4caf50'
     } else {
-      icon.strokeColor = 'purple'
+      icon.strokeColor = '#9c27b0'
     }
     return icon
   }
