@@ -22,7 +22,7 @@ function initAutocomplete(chosenEmotion) {
            {
              featureType: 'poi',
              elementType: 'labels.text.fill',
-             stylers: [{color: '#d59563'}]
+             stylers: [{visiblity: '#off'}]
            },
            {
              featureType: 'poi.park',
@@ -62,7 +62,7 @@ function initAutocomplete(chosenEmotion) {
            {
              featureType: 'road.highway',
              elementType: 'labels.text.fill',
-             stylers: [{color: '#f3d19c'}]
+             stylers: [{visibility: ''}]
            },
            {
              featureType: 'transit',
