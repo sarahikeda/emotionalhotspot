@@ -5,7 +5,7 @@
 }
 
 * {
-  font-family: 'Patrick Hand SC', cursive;
+  font-family: 'Open Sans', sans-serif;
 }
 /* Optional: Makes the sample page fill the window. */
 html, body {
@@ -93,6 +93,6 @@ html, body {
 
 #emotionDropdown {
   width: 250px;
-  font-size: 30px;
+  font-size: 20px;
   margin-bottom: 5px;
 }
