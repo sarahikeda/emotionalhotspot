@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="map.css">
+    <script type="text/javascript" src="map.js" ></script>
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCQ9pv7Y7-OKqiDd8IPRLlsLaGivnUy2lQ&libraries=visualization&callback=initMap">
+    </script>
+    <title>Heatmaps</title>
+  </head>
+  <body>
+    <h2 id="hotspot-header">Emotional Hotspots</h2>
+    <p id="hotspot-description">See where you and others have had your strongest emotional reactions.
+    </p>
+    <div class="dropdown">
+      <select id="emotionDropdown" onchange="selectEmotion()">
+        <option disabled selected value>  Find Your Feeling   </option>
+        <option value="happiness">Happiness</option>
+        <option value="sadness">Sadness</option>
+        <option value="anger">Anger</option>
+        <option value="fear">Fear</option>
+        <option value="surprise">Surprise</option>
+        <option value="disgust">Disgust</option>
+      </select>
+    </div>
+    <input id="pac-input" class="controls" type="text" placeholder="Address">
+     <button onclick="toggleHeatmap()">Toggle Heatmap</button>
+    <div id="map"></div>
+    <!-- <div id="floating-panel">
+      <button onclick="toggleHeatmap()">Toggle Heatmap</button>
+      <button onclick="changeGradient()">Change gradient</button>
+      <button onclick="changeRadius()">Change radius</button>
+      <button onclick="changeOpacity()">Change opacity</button>
+    </div> -->
+    <div id="map"></div>
+  </body>
+</html>
