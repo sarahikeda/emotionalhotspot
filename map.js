@@ -1,104 +1,143 @@
+var map, heatmap;
 
+function initMap() {
+  map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 13,
+    // Manchester coordinates
+    center: {lat: 53.469512, lng: -2.235535},
+    zoom: 12,
+    styles: [
+      {elementType: 'geometry', stylers: [{color: '#242f3e'}]},
+      {elementType: 'labels.text.stroke', stylers: [{color: '#242f3e'}]},
+      {elementType: 'labels.text.fill', stylers: [{color: '#746855'}]},
+      {
+        featureType: 'administrative.locality',
+        elementType: 'labels.text.fill',
+        stylers: [{color: '#d59563'}]
+      },
+      {
+        featureType: 'poi',
+        elementType: 'labels.text.fill',
+        stylers: [{visiblity: '#off'}]
+      },
+      {
+        featureType: 'poi.park',
+        elementType: 'geometry',
+        stylers: [{color: '#263c3f'}]
+      },
+      {
+        featureType: 'poi.park',
+        elementType: 'labels.text.fill',
+        stylers: [{color: '#6b9a76'}]
+      },
+      {
+        featureType: 'road',
+        elementType: 'geometry',
+        stylers: [{color: '#38414e'}]
+      },
+      {
+        featureType: 'road',
+        elementType: 'geometry.stroke',
+        stylers: [{color: '#212a37'}]
+      },
+      {
+        featureType: 'road',
+        elementType: 'labels.text.fill',
+        stylers: [{color: '#9ca5b3'}]
+      },
+      {
+        featureType: 'road.highway',
+        elementType: 'geometry',
+        stylers: [{color: '#746855'}]
+      },
+      {
+        featureType: 'road.highway',
+        elementType: 'geometry.stroke',
+        stylers: [{color: '#1f2835'}]
+      },
+      {
+        featureType: 'road.highway',
+        elementType: 'labels.text.fill',
+        stylers: [{visibility: ''}]
+      },
+      {
+        featureType: 'transit',
+        elementType: 'geometry',
+        stylers: [{color: '#2f3948'}]
+      },
+      {
+        featureType: 'transit.station',
+        elementType: 'labels.text.fill',
+        stylers: [{color: '#d59563'}]
+      },
+      {
+        featureType: 'water',
+        elementType: 'geometry',
+        stylers: [{color: '#17263c'}]
+      },
+      {
+        featureType: 'water',
+        elementType: 'labels.text.fill',
+        stylers: [{color: '#515c6d'}]
+      },
+      {
+        featureType: 'water',
+        elementType: 'labels.text.stroke',
+        stylers: [{color: '#17263c'}]
+      }
+    ]
+  });
 
-  // This example requires the Visualization library. Include the libraries=visualization
-  // parameter when you first load the API. For example:
-  // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=visualization">
+  heatmap = new google.maps.visualization.HeatmapLayer({
+    data: getPoints(),
+    map: map
+  });
+  getInput()
+}
 
-  var map, heatmap;
+function getInput(){
+  var input = document.getElementById('pac-input');
+  input.addEventListener("keypress", function(){
+    autoFill(input)
+  })
+}
 
-  function initMap() {
-    map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 13,
-      // Manchester coordinates
-      center: {lat: 53.469512, lng: -2.235535},
-      zoom: 12,
-           styles: [
-             {elementType: 'geometry', stylers: [{color: '#242f3e'}]},
-             {elementType: 'labels.text.stroke', stylers: [{color: '#242f3e'}]},
-             {elementType: 'labels.text.fill', stylers: [{color: '#746855'}]},
-             {
-               featureType: 'administrative.locality',
-               elementType: 'labels.text.fill',
-               stylers: [{color: '#d59563'}]
-             },
-             {
-               featureType: 'poi',
-               elementType: 'labels.text.fill',
-               stylers: [{visiblity: '#off'}]
-             },
-             {
-               featureType: 'poi.park',
-               elementType: 'geometry',
-               stylers: [{color: '#263c3f'}]
-             },
-             {
-               featureType: 'poi.park',
-               elementType: 'labels.text.fill',
-               stylers: [{color: '#6b9a76'}]
-             },
-             {
-               featureType: 'road',
-               elementType: 'geometry',
-               stylers: [{color: '#38414e'}]
-             },
-             {
-               featureType: 'road',
-               elementType: 'geometry.stroke',
-               stylers: [{color: '#212a37'}]
-             },
-             {
-               featureType: 'road',
-               elementType: 'labels.text.fill',
-               stylers: [{color: '#9ca5b3'}]
-             },
-             {
-               featureType: 'road.highway',
-               elementType: 'geometry',
-               stylers: [{color: '#746855'}]
-             },
-             {
-               featureType: 'road.highway',
-               elementType: 'geometry.stroke',
-               stylers: [{color: '#1f2835'}]
-             },
-             {
-               featureType: 'road.highway',
-               elementType: 'labels.text.fill',
-               stylers: [{visibility: ''}]
-             },
-             {
-               featureType: 'transit',
-               elementType: 'geometry',
-               stylers: [{color: '#2f3948'}]
-             },
-             {
-               featureType: 'transit.station',
-               elementType: 'labels.text.fill',
-               stylers: [{color: '#d59563'}]
-             },
-             {
-               featureType: 'water',
-               elementType: 'geometry',
-               stylers: [{color: '#17263c'}]
-             },
-             {
-               featureType: 'water',
-               elementType: 'labels.text.fill',
-               stylers: [{color: '#515c6d'}]
-             },
-             {
-               featureType: 'water',
-               elementType: 'labels.text.stroke',
-               stylers: [{color: '#17263c'}]
-             }
-           ]
-    });
+function autoFill(input){
+  var searchBox = new google.maps.places.SearchBox(input);
+  // tailor results to current map location
+  searchBox.setBounds(map.getBounds());
+  searchBox.addListener('places_changed', function() {
+    var places = searchBox.getPlaces();
 
-    heatmap = new google.maps.visualization.HeatmapLayer({
-      data: getPoints(),
-      map: map
-    });
-  }
+    if (places.length == 0) {
+      return;
+    }
+    // For each place, get the icon, name and location.
+    var bounds = new google.maps.LatLngBounds();
+    places.forEach(function(place) {
+      if (!place.geometry) {
+    //     console.log("Returned place contains no geometry");
+        return;
+    }
+
+    if (place.geometry.viewport) {
+      // Only geocodes have viewport.
+      bounds.union(place.geometry.viewport);
+    } else {
+      bounds.extend(place.geometry.location);
+    }
+      map.fitBounds(bounds);
+
+    var coordinates = getCoordinates(place)
+  })
+})}
+
+function getCoordinates(place) {
+  var latitude = place.geometry.location.lat()
+  var longitude = place.geometry.location.lng()
+  return [latitude, longitude]
+}
+
 
   function toggleHeatmap() {
     heatmap.setMap(heatmap.getMap() ? null : map);
@@ -132,6 +171,11 @@
     heatmap.set('opacity', heatmap.get('opacity') ? null : 0.2);
   }
 
+  function selectEmotion() {
+    var selectedEmotion = document.getElementById('emotionDropdown').value
+    return selectedEmotion
+    // console.log(chosenEmotion)
+  };
   // Heatmap data: 500 Points
   function getPoints() {
     return [
@@ -148,13 +192,13 @@
       new google.maps.LatLng(53.58, -2.45),
       new google.maps.LatLng(53.7, -2.5),
       new google.maps.LatLng(53.8, -2.9),
-      new google.maps.LatLng(52.790859, -2.402808),
-      new google.maps.LatLng(52.790864, -2.402768),
-      new google.maps.LatLng(52.790995, -2.402539),
-      new google.maps.LatLng(52.791148, -2.402172),
-      new google.maps.LatLng(52.791385, -2.401312),
-      new google.maps.LatLng(52.791405, -2.400776),
-      new google.maps.LatLng(52.791288, -2.400528),
-      new google.maps.LatLng(52.791113, -2.400441)
+      new google.maps.LatLng(37.790859, -122.402808),
+      new google.maps.LatLng(37.790864, -122.402768),
+      new google.maps.LatLng(37.790995, -122.402539),
+      new google.maps.LatLng(37.791148, -122.402172),
+      new google.maps.LatLng(37.791385, -122.401312),
+      new google.maps.LatLng(37.791405, -122.400776),
+      new google.maps.LatLng(37.791288, -122.400528),
+      new google.maps.LatLng(37.791113, -122.400441)
     ];
   }
