@@ -7,102 +7,190 @@ function initMap() {
     center: {lat: 53.479159, lng: -2.244105},
     zoom: 14,
     styles: [
-      {elementType: 'geometry', stylers: [{color: '#242f3e'}]},
-      {elementType: 'labels.text.stroke', stylers: [{color: '#242f3e'}]},
-      {elementType: 'labels.text.fill', stylers: [{color: '#746855'}]},
-      {
-        featureType: 'administrative.locality',
-        elementType: 'labels.text.fill',
-        stylers: [{color: '#d59563'}]
-      },
-      {
-        featureType: 'poi',
-        elementType: 'labels.text.fill',
-        stylers: [{visiblity: '#off'}]
-      },
-      {
-        featureType: 'poi.park',
-        elementType: 'geometry',
-        stylers: [{color: '#263c3f'}]
-      },
-      {
-        featureType: 'poi.park',
-        elementType: 'labels.text.fill',
-        stylers: [{color: '#6b9a76'}]
-      },
-      {
-        featureType: 'road',
-        elementType: 'geometry',
-        stylers: [{color: '#38414e'}]
-      },
-      {
-        featureType: 'road',
-        elementType: 'geometry.stroke',
-        stylers: [{color: '#212a37'}]
-      },
-      {
-        featureType: 'road',
-        elementType: 'labels.text.fill',
-        stylers: [{color: '#9ca5b3'}]
-      },
-      {
-        featureType: 'road.highway',
-        elementType: 'geometry',
-        stylers: [{color: '#746855'}]
-      },
-      {
-        featureType: 'road.highway',
-        elementType: 'geometry.stroke',
-        stylers: [{color: '#1f2835'}]
-      },
-      {
-        featureType: 'road.highway',
-        elementType: 'labels.text.fill',
-        stylers: [{visibility: ''}]
-      },
-      {
-        featureType: 'transit',
-        elementType: 'geometry',
-        stylers: [{color: '#2f3948'}]
-      },
-      {
-        featureType: 'transit.station',
-        elementType: 'labels.text.fill',
-        stylers: [{color: '#d59563'}]
-      },
-      {
-        featureType: 'water',
-        elementType: 'geometry',
-        stylers: [{color: '#17263c'}]
-      },
-      {
-        featureType: 'water',
-        elementType: 'labels.text.fill',
-        stylers: [{color: '#515c6d'}]
-      },
-      {
-        featureType: 'water',
-        elementType: 'labels.text.stroke',
-        stylers: [{color: '#17263c'}]
-      }
-    ]
+    {
+        "featureType": "all",
+        "elementType": "labels.text.fill",
+        "stylers": [
+            {
+                "saturation": 36
+            },
+            {
+                "color": "#000000"
+            },
+            {
+                "lightness": 40
+            }
+        ]
+    },
+    {
+        "featureType": "all",
+        "elementType": "labels.text.stroke",
+        "stylers": [
+            {
+                "visibility": "on"
+            },
+            {
+                "color": "#000000"
+            },
+            {
+                "lightness": 16
+            }
+        ]
+    },
+    {
+        "featureType": "all",
+        "elementType": "labels.icon",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "administrative",
+        "elementType": "geometry.fill",
+        "stylers": [
+            {
+                "color": "#000000"
+            },
+            {
+                "lightness": 20
+            }
+        ]
+    },
+    {
+        "featureType": "administrative",
+        "elementType": "geometry.stroke",
+        "stylers": [
+            {
+                "color": "#000000"
+            },
+            {
+                "lightness": 17
+            },
+            {
+                "weight": 1.2
+            }
+        ]
+    },
+    {
+        "featureType": "landscape",
+        "elementType": "geometry",
+        "stylers": [
+            {
+                "color": "#000000"
+            },
+            {
+                "lightness": 20
+            }
+        ]
+    },
+    {
+        "featureType": "poi",
+        "elementType": "geometry",
+        "stylers": [
+            {
+                "color": "#000000"
+            },
+            {
+                "lightness": 21
+            }
+        ]
+    },
+    {
+        "featureType": "road.highway",
+        "elementType": "geometry.fill",
+        "stylers": [
+            {
+                "color": "#000000"
+            },
+            {
+                "lightness": 17
+            }
+        ]
+    },
+    {
+        "featureType": "road.highway",
+        "elementType": "geometry.stroke",
+        "stylers": [
+            {
+                "color": "#000000"
+            },
+            {
+                "lightness": 29
+            },
+            {
+                "weight": 0.2
+            }
+        ]
+    },
+    {
+        "featureType": "road.arterial",
+        "elementType": "geometry",
+        "stylers": [
+            {
+                "color": "#000000"
+            },
+            {
+                "lightness": 18
+            }
+        ]
+    },
+    {
+        "featureType": "road.local",
+        "elementType": "geometry",
+        "stylers": [
+            {
+                "color": "#000000"
+            },
+            {
+                "lightness": 16
+            }
+        ]
+    },
+    {
+        "featureType": "transit",
+        "elementType": "geometry",
+        "stylers": [
+            {
+                "color": "#000000"
+            },
+            {
+                "lightness": 19
+            }
+        ]
+    },
+    {
+        "featureType": "water",
+        "elementType": "geometry",
+        "stylers": [
+            {
+                "color": "#000000"
+            },
+            {
+                "lightness": 17
+            }
+        ]
+    }
+]
   });
 
   heatmap = new google.maps.visualization.HeatmapLayer({
     data: getPoints(),
     map: map
   });
-  getInput()
+  getInput(getPoints())
 }
 
-function getInput(){
+function getInput(mapCoordinates){
   var input = document.getElementById('pac-input');
   input.addEventListener("keypress", function(){
-    autoFill(input)
+    var searchBox = new google.maps.places.SearchBox(input);
+    autoFill(input, mapCoordinates)
   })
 }
 
-function autoFill(input){
+function autoFill(input, mapCoordinates){
   var searchBox = new google.maps.places.SearchBox(input);
   // tailor results to current map location
   searchBox.setBounds(map.getBounds());
@@ -114,6 +202,7 @@ function autoFill(input){
     }
     // For each place, get the icon, name and location.
     var bounds = new google.maps.LatLngBounds();
+
     places.forEach(function(place) {
       if (!place.geometry) {
     //     console.log("Returned place contains no geometry");
@@ -126,27 +215,14 @@ function autoFill(input){
     } else {
       bounds.extend(place.geometry.location);
     }
+      mapCoordinates.push(place.geometry.location)
+      debugger;
       map.fitBounds(bounds);
 
-    var coordinates = getCoordinates(place)
     initMap();
   })
 })}
 
-function getCoordinates(place) {
-  var latitude = place.geometry.location.lat()
-  var longitude = place.geometry.location.lng()
-  var newCoordinate = new google.maps.LatLng(latitude,longitude)
-  // map.data.add(newCoordinate)
-  // console.log(map.data)
-  // debugger;
-  getPoints(newCoordinate)
-}
-
-function addToMap(newCoordinate){
-  // getPoints(newCoordinate)
-  // heatmap.getMap()
-}
 function toggleHeatmap() {
   heatmap.setMap(heatmap.getMap() ? null : map);
 }
@@ -184,8 +260,7 @@ function selectEmotion() {
   return selectedEmotion
 };
 
-function getPoints(newCoordinate = null) {
-  debugger;
+function getPoints() {
   var mapCoordinates =  [
     new google.maps.LatLng(53.482126, -2.233910),
     new google.maps.LatLng(53.482126, -2.233910),
@@ -206,12 +281,6 @@ function getPoints(newCoordinate = null) {
     new google.maps.LatLng(53.481357, -2.245774),
     new google.maps.LatLng(53.482581, -2.235445),
     new google.maps.LatLng(53.443939, -2.272967),
-
   ];
-
-  mapCoordinates.push(newCoordinate)
-  console.log(newCoordinate)
-  console.log(mapCoordinates)
-  debugger;
   return mapCoordinates
 }
