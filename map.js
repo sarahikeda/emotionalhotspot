@@ -4,8 +4,8 @@ function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
     zoom: 13,
     // Manchester coordinates
-    center: {lat: 53.469512, lng: -2.235535},
-    zoom: 12,
+    center: {lat: 53.479159, lng: -2.244105},
+    zoom: 14,
     styles: [
       {elementType: 'geometry', stylers: [{color: '#242f3e'}]},
       {elementType: 'labels.text.stroke', stylers: [{color: '#242f3e'}]},
@@ -129,76 +129,91 @@ function autoFill(input){
       map.fitBounds(bounds);
 
     var coordinates = getCoordinates(place)
+    initMap();
   })
 })}
 
 function getCoordinates(place) {
   var latitude = place.geometry.location.lat()
   var longitude = place.geometry.location.lng()
-  return [latitude, longitude]
+  var newCoordinate = new google.maps.LatLng(latitude,longitude)
+  // map.data.add(newCoordinate)
+  // console.log(map.data)
+  // debugger;
+  getPoints(newCoordinate)
 }
 
+function addToMap(newCoordinate){
+  // getPoints(newCoordinate)
+  // heatmap.getMap()
+}
+function toggleHeatmap() {
+  heatmap.setMap(heatmap.getMap() ? null : map);
+}
 
-  function toggleHeatmap() {
-    heatmap.setMap(heatmap.getMap() ? null : map);
-  }
+function changeGradient() {
+  var gradient = [
+    'rgba(0, 255, 255, 0)',
+    'rgba(0, 255, 255, 1)',
+    'rgba(0, 191, 255, 1)',
+    'rgba(0, 127, 255, 1)',
+    'rgba(0, 63, 255, 1)',
+    'rgba(0, 0, 255, 1)',
+    'rgba(0, 0, 223, 1)',
+    'rgba(0, 0, 191, 1)',
+    'rgba(0, 0, 159, 1)',
+    'rgba(0, 0, 127, 1)',
+    'rgba(63, 0, 91, 1)',
+    'rgba(127, 0, 63, 1)',
+    'rgba(191, 0, 31, 1)',
+    'rgba(255, 0, 0, 1)'
+  ]
+  heatmap.set('gradient', heatmap.get('gradient') ? null : gradient);
+}
 
-  function changeGradient() {
-    var gradient = [
-      'rgba(0, 255, 255, 0)',
-      'rgba(0, 255, 255, 1)',
-      'rgba(0, 191, 255, 1)',
-      'rgba(0, 127, 255, 1)',
-      'rgba(0, 63, 255, 1)',
-      'rgba(0, 0, 255, 1)',
-      'rgba(0, 0, 223, 1)',
-      'rgba(0, 0, 191, 1)',
-      'rgba(0, 0, 159, 1)',
-      'rgba(0, 0, 127, 1)',
-      'rgba(63, 0, 91, 1)',
-      'rgba(127, 0, 63, 1)',
-      'rgba(191, 0, 31, 1)',
-      'rgba(255, 0, 0, 1)'
-    ]
-    heatmap.set('gradient', heatmap.get('gradient') ? null : gradient);
-  }
-
-  function changeRadius() {
+function changeRadius() {
     heatmap.set('radius', heatmap.get('radius') ? null : 20);
   }
 
-  function changeOpacity() {
-    heatmap.set('opacity', heatmap.get('opacity') ? null : 0.2);
-  }
+function changeOpacity() {
+  heatmap.set('opacity', heatmap.get('opacity') ? null : 0.2);
+}
 
-  function selectEmotion() {
-    var selectedEmotion = document.getElementById('emotionDropdown').value
-    return selectedEmotion
-    // console.log(chosenEmotion)
-  };
-  // Heatmap data: 500 Points
-  function getPoints() {
-    return [
-      new google.maps.LatLng(53.52, -2.5),
-      new google.maps.LatLng(53.52, -2.24),
-      new google.maps.LatLng(53.53, -2.25),
-      new google.maps.LatLng(53.54, -2.6),
-      new google.maps.LatLng(53.542, -2.4),
-      new google.maps.LatLng(53.544, -2.67),
-      new google.maps.LatLng(53.55, -2.68),
-      new google.maps.LatLng(53.56, -2.689),
-      new google.maps.LatLng(53.57, -2.69),
-      new google.maps.LatLng(53.2, -2.7),
-      new google.maps.LatLng(53.58, -2.45),
-      new google.maps.LatLng(53.7, -2.5),
-      new google.maps.LatLng(53.8, -2.9),
-      new google.maps.LatLng(37.790859, -122.402808),
-      new google.maps.LatLng(37.790864, -122.402768),
-      new google.maps.LatLng(37.790995, -122.402539),
-      new google.maps.LatLng(37.791148, -122.402172),
-      new google.maps.LatLng(37.791385, -122.401312),
-      new google.maps.LatLng(37.791405, -122.400776),
-      new google.maps.LatLng(37.791288, -122.400528),
-      new google.maps.LatLng(37.791113, -122.400441)
-    ];
-  }
+function selectEmotion() {
+  var selectedEmotion = document.getElementById('emotionDropdown').value
+  return selectedEmotion
+  // console.log(chosenEmotion)
+};
+// Heatmap data: 500 Points
+function getPoints(newCoordinate = null) {
+  debugger;
+  var mapCoordinates =  [
+    // new google.maps.LatLng(53.42, -2.25),
+    new google.maps.LatLng(53.482126, -2.233910),
+    new google.maps.LatLng(53.482126, -2.233910),
+    new google.maps.LatLng(53.482126, -2.233910),
+    new google.maps.LatLng(53.482126, -2.233910),
+    new google.maps.LatLng(53.482126, -2.233910),
+    new google.maps.LatLng(53.482126, -2.233910),
+    new google.maps.LatLng(53.472235, -2.299887),
+    new google.maps.LatLng(53.463059, -2.291340) ,
+    new google.maps.LatLng(53.488289, -2.244002),
+    new google.maps.LatLng(53.478285, -2.247938),
+    new google.maps.LatLng(53.478285, -2.247938),
+    new google.maps.LatLng(53.478060, -2.244666),
+    new google.maps.LatLng(53.473477, -2.246717),
+    new google.maps.LatLng(53.482329, -2.233733),
+    new google.maps.LatLng(53.478060,-2.244666),
+    new google.maps.LatLng(53.480980, -2.237020),
+    new google.maps.LatLng(53.481357, -2.245774),
+    new google.maps.LatLng(53.482581, -2.235445),
+    new google.maps.LatLng(53.443939, -2.272967),
+
+  ];
+
+  mapCoordinates.push(newCoordinate)
+  console.log(newCoordinate)
+  console.log(mapCoordinates)
+  debugger;
+  return mapCoordinates
+}
