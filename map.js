@@ -182,13 +182,11 @@ function changeOpacity() {
 function selectEmotion() {
   var selectedEmotion = document.getElementById('emotionDropdown').value
   return selectedEmotion
-  // console.log(chosenEmotion)
 };
-// Heatmap data: 500 Points
+
 function getPoints(newCoordinate = null) {
   debugger;
   var mapCoordinates =  [
-    // new google.maps.LatLng(53.42, -2.25),
     new google.maps.LatLng(53.482126, -2.233910),
     new google.maps.LatLng(53.482126, -2.233910),
     new google.maps.LatLng(53.482126, -2.233910),
