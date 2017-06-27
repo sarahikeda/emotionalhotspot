@@ -1,177 +1,297 @@
-function selectEmotion() {
-  var selectedEmotion = document.getElementById('emotionDropdown').value
-  return selectedEmotion
-  // console.log(chosenEmotion)
-};
-    // console.log(chosenEmotion)
-function initAutocomplete(chosenEmotion) {
-  var map = new google.maps.Map(document.getElementById('map'), {
+var map, heatmap;
+
+function initMap() {
+  map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 14,
     // Manchester coordinates
-    center: {lat: 53.469512, lng: -2.235535},
-    zoom: 13,
-    zoom: 12,
-         styles: [
-           {elementType: 'geometry', stylers: [{color: '#242f3e'}]},
-           {elementType: 'labels.text.stroke', stylers: [{color: '#242f3e'}]},
-           {elementType: 'labels.text.fill', stylers: [{color: '#746855'}]},
-           {
-             featureType: 'administrative.locality',
-             elementType: 'labels.text.fill',
-             stylers: [{color: '#d59563'}]
-           },
-           {
-             featureType: 'poi',
-             elementType: 'labels.text.fill',
-             stylers: [{visiblity: '#off'}]
-           },
-           {
-             featureType: 'poi.park',
-             elementType: 'geometry',
-             stylers: [{color: '#263c3f'}]
-           },
-           {
-             featureType: 'poi.park',
-             elementType: 'labels.text.fill',
-             stylers: [{color: '#6b9a76'}]
-           },
-           {
-             featureType: 'road',
-             elementType: 'geometry',
-             stylers: [{color: '#38414e'}]
-           },
-           {
-             featureType: 'road',
-             elementType: 'geometry.stroke',
-             stylers: [{color: '#212a37'}]
-           },
-           {
-             featureType: 'road',
-             elementType: 'labels.text.fill',
-             stylers: [{color: '#9ca5b3'}]
-           },
-           {
-             featureType: 'road.highway',
-             elementType: 'geometry',
-             stylers: [{color: '#746855'}]
-           },
-           {
-             featureType: 'road.highway',
-             elementType: 'geometry.stroke',
-             stylers: [{color: '#1f2835'}]
-           },
-           {
-             featureType: 'road.highway',
-             elementType: 'labels.text.fill',
-             stylers: [{visibility: ''}]
-           },
-           {
-             featureType: 'transit',
-             elementType: 'geometry',
-             stylers: [{color: '#2f3948'}]
-           },
-           {
-             featureType: 'transit.station',
-             elementType: 'labels.text.fill',
-             stylers: [{color: '#d59563'}]
-           },
-           {
-             featureType: 'water',
-             elementType: 'geometry',
-             stylers: [{color: '#17263c'}]
-           },
-           {
-             featureType: 'water',
-             elementType: 'labels.text.fill',
-             stylers: [{color: '#515c6d'}]
-           },
-           {
-             featureType: 'water',
-             elementType: 'labels.text.stroke',
-             stylers: [{color: '#17263c'}]
-           }
-         ]
+    center: {lat: 53.479159, lng: -2.244105},
+    disableDefaultUI: true,
+    zoomControl: true,
+        zoomControlOptions: {
+            position: google.maps.ControlPosition.LEFT_CENTER
+        },
+    styles: [
+    {
+        "featureType": "all",
+        "elementType": "labels.text.fill",
+        "stylers": [
+            {
+                "saturation": 20
+            },
+            {
+                "color": "#000000"
+            },
+            {
+                "lightness": 30
+            }
+        ]
+    },
+    {
+        "featureType": "all",
+        "elementType": "labels.text.stroke",
+        "stylers": [
+            {
+                "visibility": "on"
+            },
+            {
+                "color": "#000000"
+            },
+            {
+                "lightness": 16
+            }
+        ]
+    },
+    {
+        "featureType": "all",
+        "elementType": "labels.icon",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "administrative",
+        "elementType": "geometry.fill",
+        "stylers": [
+            {
+                "color": "#000000"
+            },
+            {
+                "lightness": 20
+            }
+        ]
+    },
+    {
+        "featureType": "administrative",
+        "elementType": "geometry.stroke",
+        "stylers": [
+            {
+                "color": "#000000"
+            },
+            {
+                "lightness": 17
+            },
+            {
+                "weight": 1.2
+            }
+        ]
+    },
+    {
+        "featureType": "landscape",
+        "elementType": "geometry",
+        "stylers": [
+            {
+                "color": "#000000"
+            },
+            {
+                "lightness": 20
+            }
+        ]
+    },
+    {
+        "featureType": "poi",
+        "elementType": "geometry",
+        "stylers": [
+            {
+                "color": "#000000"
+            },
+            {
+                "lightness": 21
+            }
+        ]
+    },
+    {
+        "featureType": "road.highway",
+        "elementType": "geometry.fill",
+        "stylers": [
+            {
+                "color": "#000000"
+            },
+            {
+                "lightness": 17
+            }
+        ]
+    },
+    {
+        "featureType": "road.highway",
+        "elementType": "geometry.stroke",
+        "stylers": [
+            {
+                "color": "#000000"
+            },
+            {
+                "lightness": 29
+            },
+            {
+                "weight": 0.2
+            }
+        ]
+    },
+    {
+        "featureType": "road.arterial",
+        "elementType": "geometry",
+        "stylers": [
+            {
+                "color": "#000000"
+            },
+            {
+                "lightness": 18
+            }
+        ]
+    },
+    {
+        "featureType": "road.local",
+        "elementType": "geometry",
+        "stylers": [
+            {
+                "color": "#000000"
+            },
+            {
+                "lightness": 16
+            }
+        ]
+    },
+    {
+        "featureType": "transit",
+        "elementType": "geometry",
+        "stylers": [
+            {
+                "color": "#000000"
+            },
+            {
+                "lightness": 19
+            }
+        ]
+    },
+    {
+        "featureType": "water",
+        "elementType": "geometry",
+        "stylers": [
+            {
+                "color": "#000000"
+            },
+            {
+                "lightness": 17
+            }
+        ]
+    }
+]
   });
 
-  // Create the search box and link it to the UI element.
+  heatmap = new google.maps.visualization.HeatmapLayer({
+    data: getPoints(),
+    map: map
+  });
+  getInput(getPoints())
+}
+
+function getInput(mapCoordinates){
   var input = document.getElementById('pac-input');
+  input.addEventListener("keypress", function(){
+    var searchBox = new google.maps.places.SearchBox(input);
+    autoFill(input, mapCoordinates)
+  })
+}
+
+function autoFill(input, mapCoordinates){
   var searchBox = new google.maps.places.SearchBox(input);
-  map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-
   // tailor results to current map location
-  map.addListener('bounds_changed', function() {
-    searchBox.setBounds(map.getBounds());
-  });
-
-  var markers = [];
-  // Listen for the event fired when the user selects a prediction and retrieve
-  // more details for that place.
+  searchBox.setBounds(map.getBounds());
   searchBox.addListener('places_changed', function() {
-// checks what emotion user chose, to customize marker
     var places = searchBox.getPlaces();
 
     if (places.length == 0) {
       return;
     }
-
     // For each place, get the icon, name and location.
     var bounds = new google.maps.LatLngBounds();
+
     places.forEach(function(place) {
       if (!place.geometry) {
-        console.log("Returned place contains no geometry");
+    //     console.log("Returned place contains no geometry");
         return;
-      }
-      // Create a marker for each place.
-
-      markers.push(new google.maps.Marker({
-        map: map,
-        title: place.name,
-        icon: makeIcons(),
-        position: place.geometry.location
-      }));
-
-      if (place.geometry.viewport) {
-        // Only geocodes have viewport.
-        bounds.union(place.geometry.viewport);
-      } else {
-        bounds.extend(place.geometry.location);
-      }
-    });
-    map.fitBounds(bounds);
-  });
-}
-
-function createIcon(){
-  return {
-      path: 'M 125,5 155,90 245,90 175,145 200,230 125,180 50,230 75,145 5,90 95,90 z',
-      fillOpacity: 0.8,
-      scale: .1,
-      strokeWeight: 6
-    };
-}
-function makeIcons(){
-  var chosenEmotion = selectEmotion()
-  var icon = createIcon()
-  if (chosenEmotion == 'happiness') {
-      icon.fillColor = '#ffeb3b'
-      icon.strokeColor = '#ffeb3b'
-    } else if (chosenEmotion === "anger") {
-      icon.fillColor = '#ff0000'
-      icon.strokeColor = '#ff0000'
-    } else if (chosenEmotion == "sadness") {
-      icon.fillColor = '#b900ff'
-      icon.strokeColor = '#b900ff'
-    } else if (chosenEmotion == "disgust") {
-      icon.fillColor = '#12ff28'
-      icon.strokeColor = '#12ff28'
-    } else if (chosenEmotion == "surprise") {
-      icon.fillColor = '#ff9d00'
-      icon.strokeColor = '#ff9d00'
-    } else if (chosenEmotion == "fear") {
-      icon.fillColor = '#fd04cf'
-      icon.strokeColor = '#fd04cf'
-    } else {
-      icon.fillColor = '#9c27b0'
-      icon.strokeColor = '#9c27b0'
     }
-    return icon
+
+    if (place.geometry.viewport) {
+      // Only geocodes have viewport.
+      bounds.union(place.geometry.viewport);
+    } else {
+      bounds.extend(place.geometry.location);
+    }
+      mapCoordinates.push(place.geometry.location)
+      debugger;
+      map.fitBounds(bounds);
+
+    initMap();
+  })
+})}
+
+function toggleHeatmap() {
+  heatmap.setMap(heatmap.getMap() ? null : map);
+}
+
+function changeGradient() {
+  var gradient = [
+    'rgba(0, 255, 255, 0)',
+    'rgba(0, 255, 255, 1)',
+    'rgba(0, 191, 255, 1)',
+    'rgba(0, 127, 255, 1)',
+    'rgba(0, 63, 255, 1)',
+    'rgba(0, 0, 255, 1)',
+    'rgba(0, 0, 223, 1)',
+    'rgba(0, 0, 191, 1)',
+    'rgba(0, 0, 159, 1)',
+    'rgba(0, 0, 127, 1)',
+    'rgba(63, 0, 91, 1)',
+    'rgba(127, 0, 63, 1)',
+    'rgba(191, 0, 31, 1)',
+    'rgba(255, 0, 0, 1)'
+  ]
+  heatmap.set('gradient', heatmap.get('gradient') ? null : gradient);
+}
+
+function changeRadius() {
+    heatmap.set('radius', heatmap.get('radius') ? null : 20);
   }
+
+function changeOpacity() {
+  heatmap.set('opacity', heatmap.get('opacity') ? null : 0.2);
+}
+
+function selectEmotion() {
+  var selectedEmotion = document.getElementById('emotionDropdown').value
+  return selectedEmotion
+};
+
+function getPoints() {
+  var mapCoordinates =  [
+    new google.maps.LatLng(53.482126, -2.233910),
+    new google.maps.LatLng(53.482126, -2.233910),
+    new google.maps.LatLng(53.482126, -2.233910),
+    new google.maps.LatLng(53.482126, -2.233910),
+    new google.maps.LatLng(53.482126, -2.233910),
+    new google.maps.LatLng(53.482126, -2.233910),
+    new google.maps.LatLng(53.472235, -2.299887),
+    new google.maps.LatLng(53.463059, -2.291340) ,
+    new google.maps.LatLng(53.488289, -2.244002),
+    new google.maps.LatLng(53.478285, -2.247938),
+    new google.maps.LatLng(53.478285, -2.247938),
+    new google.maps.LatLng(53.478060, -2.244666),
+    new google.maps.LatLng(53.473477, -2.246717),
+    new google.maps.LatLng(53.482329, -2.233733),
+    new google.maps.LatLng(53.478060,-2.244666),
+    new google.maps.LatLng(53.480980, -2.237020),
+    new google.maps.LatLng(53.481357, -2.245774),
+    new google.maps.LatLng(53.482581, -2.235445),
+    new google.maps.LatLng(53.443939, -2.272967),
+    new google.maps.LatLng(53.482595, -2.233750),
+    new google.maps.LatLng(53.491438, -2.238733),
+    new google.maps.LatLng(53.481267, -2.231291),
+    new google.maps.LatLng(53.477403, -2.230932),
+    new google.maps.LatLng(53.479115, -2.249086),
+    new google.maps.LatLng(53.462559, -2.291032),
+    new google.maps.LatLng(53.481399, -2.238615)
+  ];
+  return mapCoordinates
+}
