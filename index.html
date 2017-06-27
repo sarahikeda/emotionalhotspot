@@ -1,20 +1,20 @@
+<!DOCTYPE html>
 <html>
   <head>
-     <meta charset="utf-8">
-      <link rel="stylesheet" type="text/css" href="index.css">
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-      <script type="text/javascript" src="index.js" ></script>
-      <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCQ9pv7Y7-OKqiDd8IPRLlsLaGivnUy2lQ&libraries=places&callback=initAutocomplete"
-               async defer></script>
-      <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-
-      <title>Emotional Hotspot</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="index.css">
+    <script type="text/javascript" src="index.js" ></script>
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCQ9pv7Y7-OKqiDd8IPRLlsLaGivnUy2lQ&libraries=visualization,places&callback=initMap">
+    </script>
+    
+    <title>Heatmaps</title>
   </head>
   <body>
-    <h2 id="hotspot-header">Emotional Hotspots</h2>
-    <p id="hotspot-description">See where you and others have had your strongest emotional reactions.
+    <h2 id="hotspot-header">EMOTIONAL HOTSPOTS OF THE CITY</h2>
+    <!-- <p id="hotspot-description">See where you and others have had your strongest emotional reactions. -->
     </p>
-    <div class="dropdown">
+    <!-- <div class="dropdown">
       <select id="emotionDropdown" onchange="selectEmotion()">
         <option disabled selected value>  Find Your Feeling   </option>
         <option value="happiness">Happiness</option>
@@ -24,8 +24,15 @@
         <option value="surprise">Surprise</option>
         <option value="disgust">Disgust</option>
       </select>
-    </div>
-    <input id="pac-input" class="controls" type="text" placeholder="Address">
+    </div> -->
+    <!-- <input id="pac-input" class="controls" type="text" placeholder="Address"> -->
+     <!-- <button onclick="toggleHeatmap()">Toggle Heatmap</button> -->
     <div id="map"></div>
+    <!-- <div id="floating-panel">
+      <button onclick="toggleHeatmap()">Toggle Heatmap</button>
+      <button onclick="changeGradient()">Change gradient</button>
+      <button onclick="changeRadius()">Change radius</button>
+      <button onclick="changeOpacity()">Change opacity</button>
+    </div> -->
   </body>
 </html>
