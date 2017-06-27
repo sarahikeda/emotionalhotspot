@@ -2,14 +2,15 @@ var map, heatmap;
 
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 14,
+    zoom: 13,
     // Manchester coordinates
     center: {lat: 53.479159, lng: -2.244105},
+    zoom: 14,
     disableDefaultUI: true,
     zoomControl: true,
-        zoomControlOptions: {
-            position: google.maps.ControlPosition.LEFT_CENTER
-        },
+          zoomControlOptions: {
+              position: google.maps.ControlPosition.LEFT_CENTER
+          },
     styles: [
     {
         "featureType": "all",
