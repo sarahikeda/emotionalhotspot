@@ -1,7 +1,7 @@
 /* Always set the map height explicitly to define the size of the div
  * element that contains the map. */
 #map {
-  height: 80%;
+  height: 100%;
   width: 100%;
 }
 
@@ -47,17 +47,6 @@ html, body {
   background: rgba(19,148,119,0.9);
 }
 
-#map:hover .emotion, #map:focus .emotion {
- left: 0;
- top:0;
- transition: all .3s ease-out .1s;
-   -moz-transition: all .3s ease-out .1s;
-   -webkit-transition: all .3s ease-out .1s;
-}
-
-#map:hover body{
-  background-color: red;
-}
 #hotspot-header {
   margin-top: 40px;
   margin-bottom: 20px;
@@ -65,13 +54,7 @@ html, body {
 }
 
 #hotspot-description {
-  text-align: center;
-  transition-timing-function: ease-in-out;
-  display: inline-block;
-}
-
-#hotspot-description:hover {
-  width: 500px;
+  text-align:center;
 }
 
 #infowindow-content .title {
